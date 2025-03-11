@@ -1,5 +1,7 @@
 # HW1
 
+B10705013 資管四 陳彥廷
+
 ## Quick Start
 
 I use go 1.24.0 to run the code.
