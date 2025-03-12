@@ -16,25 +16,6 @@ go run main.go
 
 ## Architecture
 
-Below is my file structure.
-
-```txt
-├─ go.mod
-├─ infra
-│  └─ db.go
-├─ interface
-│  └─ cli.go
-├─ main.go
-├─ model
-│  ├─ listing.go
-│  └─ user.go
-├─ README.md
-├─ run.sh
-└─ service
-   ├─ listing.go
-   └─ user.go
-```
-
 - `main.go` is the entry point of the program.
 - `infra/` contains the mock database and data layer.
 - `model/` defines the data structure and methods.
@@ -43,4 +24,4 @@ Below is my file structure.
 
 ## Results
 
-![alt text](/docs/image.png)
+![alt text](./docs/image.png)
