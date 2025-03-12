@@ -15,10 +15,9 @@ func main() {
 
 	mockdb := db.NewMockDB()
 
-	userService := service.NewUserService(mockdb)
-	listingService := service.NewListingService(mockdb, userService)
+	serviceManager := service.NewServiceManager(mockdb)
 
-	handler := cli.NewCLIHandler(userService, listingService)
+	handler := cli.NewCLIHandler(serviceManager)
 
 	scanner := bufio.NewScanner(os.Stdin)
 	for {

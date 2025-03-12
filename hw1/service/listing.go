@@ -1,50 +1,59 @@
 package service
 
 import (
+	db "github.com/RulerChen/NTUCS-CNAD/hw1/infra"
 	model "github.com/RulerChen/NTUCS-CNAD/hw1/model"
 )
 
-type ListingService struct {
-	listingService model.ListingInterface
-	userService    model.UserInterface
+type ListingService interface {
+	CreateListing(username, title, description string, price int, category string) (int, error)
+	DeleteListing(username string, listingID int) error
+	GetListing(username string, listingID int) (model.Listing, error)
+	GetCategory(username, category string) ([]model.Listing, error)
+	GetTopCategory(username string) (string, error)
 }
 
-func NewListingService(listingService model.ListingInterface, userService model.UserInterface) *ListingService {
-	return &ListingService{
-		listingService: listingService,
-		userService:    userService,
+type ListingServiceImpl struct {
+	DB          db.DB
+	UserService UserService
+}
+
+func NewListingService(database db.DB, userService UserService) ListingService {
+	return &ListingServiceImpl{
+		DB:          database,
+		UserService: userService,
 	}
 }
 
-func (ls *ListingService) CreateListing(username string, title string, description string, price int, category string) (int, error) {
-	_, err := ls.userService.GetUser(username)
+func (ls *ListingServiceImpl) CreateListing(username string, title string, description string, price int, category string) (int, error) {
+	_, err := ls.UserService.GetUser(username)
 	if err != nil {
 		return 0, err
 	}
 
-	return ls.listingService.CreateListing(username, title, description, price, category)
+	return ls.DB.CreateListing(username, title, description, price, category)
 }
 
-func (ls *ListingService) DeleteListing(username string, listingID int) error {
-	return ls.listingService.DeleteListing(username, listingID)
+func (ls *ListingServiceImpl) DeleteListing(username string, listingID int) error {
+	return ls.DB.DeleteListing(username, listingID)
 }
 
-func (ls *ListingService) GetListing(username string, listingID int) (model.Listing, error) {
-	_, err := ls.userService.GetUser(username)
+func (ls *ListingServiceImpl) GetListing(username string, listingID int) (model.Listing, error) {
+	_, err := ls.UserService.GetUser(username)
 	if err != nil {
 		return model.Listing{}, err
 	}
 
-	return ls.listingService.GetListing(username, listingID)
+	return ls.DB.GetListing(username, listingID)
 }
 
-func (ls *ListingService) GetCategory(username string, category string) ([]model.Listing, error) {
-	_, err := ls.userService.GetUser(username)
+func (ls *ListingServiceImpl) GetCategory(username string, category string) ([]model.Listing, error) {
+	_, err := ls.UserService.GetUser(username)
 	if err != nil {
 		return nil, err
 	}
 
-	listings, err := ls.listingService.GetCategory(username, category)
+	listings, err := ls.DB.GetCategory(username, category)
 	if err != nil {
 		return nil, err
 	}
@@ -61,11 +70,11 @@ func (ls *ListingService) GetCategory(username string, category string) ([]model
 	return listings, nil
 }
 
-func (ls *ListingService) GetTopCategory(username string) (string, error) {
-	_, err := ls.userService.GetUser(username)
+func (ls *ListingServiceImpl) GetTopCategory(username string) (string, error) {
+	_, err := ls.UserService.GetUser(username)
 	if err != nil {
 		return "", err
 	}
 
-	return ls.listingService.GetTopCategory(username)
+	return ls.DB.GetTopCategory(username)
 }

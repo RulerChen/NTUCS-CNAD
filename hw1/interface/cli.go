@@ -8,14 +8,14 @@ import (
 )
 
 type CLIHandler struct {
-	userService    *service.UserService
-	listingService *service.ListingService
+	userService    service.UserService
+	listingService service.ListingService
 }
 
-func NewCLIHandler(userService *service.UserService, listingService *service.ListingService) *CLIHandler {
+func NewCLIHandler(serviceManager *service.ServiceManager) *CLIHandler {
 	return &CLIHandler{
-		userService:    userService,
-		listingService: listingService,
+		userService:    serviceManager.UserService,
+		listingService: serviceManager.ListingService,
 	}
 }
 
