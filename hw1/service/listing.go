@@ -10,7 +10,7 @@ type ListingService interface {
 	DeleteListing(username string, listingID int) error
 	GetListing(username string, listingID int) (model.Listing, error)
 	GetCategory(username, category string) ([]model.Listing, error)
-	GetTopCategory(username string) (string, error)
+	GetTopCategory(username string) ([]string, error)
 }
 
 type ListingServiceImpl struct {
@@ -70,11 +70,25 @@ func (ls *ListingServiceImpl) GetCategory(username string, category string) ([]m
 	return listings, nil
 }
 
-func (ls *ListingServiceImpl) GetTopCategory(username string) (string, error) {
+func (ls *ListingServiceImpl) GetTopCategory(username string) ([]string, error) {
 	_, err := ls.UserService.GetUser(username)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return ls.DB.GetTopCategory(username)
+	// sort by lexically desc (bubble sort)
+	categories, err := ls.DB.GetTopCategory(username)
+	if err != nil {
+		return nil, err
+	}
+
+	for i := 0; i < len(categories); i++ {
+		for j := i + 1; j < len(categories); j++ {
+			if categories[i] > categories[j] {
+				categories[i], categories[j] = categories[j], categories[i]
+			}
+		}
+	}
+
+	return categories, nil
 }

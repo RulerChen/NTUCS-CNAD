@@ -117,17 +117,20 @@ func (db *MockDB) GetCategory(username string, category string) ([]model.Listing
 	return listings, nil
 }
 
-func (db *MockDB) GetTopCategory(username string) (string, error) {
+func (db *MockDB) GetTopCategory(username string) ([]string, error) {
 	db.mutex.RLock()
 	defer db.mutex.RUnlock()
 
-	var topCategory string
+	var topCategory []string
 	var topCount int
 	for category, count := range db.categoryCount {
-		if count >= topCount {
-			topCategory = category
+		if count > topCount {
+			topCategory = []string{category}
 			topCount = count
+		} else if count == topCount {
+			topCategory = append(topCategory, category)
 		}
 	}
+
 	return topCategory, nil
 }

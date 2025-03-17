@@ -88,7 +88,7 @@ func (h *CLIHandler) handleRegister(tokens []string) {
 
 	err := h.userService.CreateUser(username)
 	if err != nil {
-		fmt.Println("Error - ", err.Error())
+		fmt.Println("Error -", err.Error())
 	} else {
 		fmt.Println("Success")
 	}
@@ -131,7 +131,7 @@ func (h *CLIHandler) handleDeleteListing(tokens []string) {
 
 	err = h.listingService.DeleteListing(username, listingID)
 	if err != nil {
-		fmt.Println("Error - ", err.Error())
+		fmt.Println("Error -", err.Error())
 	} else {
 		fmt.Println("Success")
 	}
@@ -150,7 +150,7 @@ func (h *CLIHandler) handleGetListing(tokens []string) {
 	}
 	listing, err := h.listingService.GetListing(username, listingID)
 	if err != nil {
-		fmt.Println("Error - ", err.Error())
+		fmt.Println("Error -", err.Error())
 	} else {
 		timeStr := listing.CreatedAt.Format("2006-01-02 15:04:05")
 		fmt.Printf("%s|%s|%d|%s|%s|%s\n", listing.Title, listing.Description, listing.Price, timeStr, listing.Category, listing.Username)
@@ -166,7 +166,7 @@ func (h *CLIHandler) handleGetCategory(tokens []string) {
 	category := tokens[2]
 	listings, err := h.listingService.GetCategory(username, category)
 	if err != nil {
-		fmt.Println("Error - ", err.Error())
+		fmt.Println("Error -", err.Error())
 	} else {
 		for _, listing := range listings {
 			timeStr := listing.CreatedAt.Format("2006-01-02 15:04:05")
@@ -183,8 +183,10 @@ func (h *CLIHandler) handleGetTopCategory(tokens []string) {
 	username := tokens[1]
 	category, err := h.listingService.GetTopCategory(username)
 	if err != nil {
-		fmt.Println("Error - ", err.Error())
+		fmt.Println("Error -", err.Error())
 	} else {
-		fmt.Println(category)
+		for _, cat := range category {
+			fmt.Println(cat)
+		}
 	}
 }

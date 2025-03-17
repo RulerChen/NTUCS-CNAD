@@ -11,5 +11,5 @@ type DB interface {
 	DeleteListing(username string, listingID int) error
 	GetListing(username string, listingID int) (model.Listing, error)
 	GetCategory(username string, category string) ([]model.Listing, error)
-	GetTopCategory(username string) (string, error)
+	GetTopCategory(username string) ([]string, error)
 }
