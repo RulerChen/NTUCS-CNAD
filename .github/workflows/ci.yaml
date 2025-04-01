@@ -28,4 +28,9 @@ jobs:
         run: |
           cd hw1
           go test ./...
+
+      - name: Build
+        run: |
+          cd hw1
+          go build -o main .
   
