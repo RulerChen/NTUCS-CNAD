@@ -19,7 +19,7 @@ func main() {
 
 	handler := cli.NewCLIHandler(serviceManager)
 
-	scanner := bufio.NewScanner(os.Stdin)
+	// scanner := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Print("# ")
 		if !scanner.Scan() {
