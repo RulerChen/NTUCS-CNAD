@@ -25,5 +25,8 @@ See the result at [http://localhost:8080](http://localhost:8080)
 
 ## Link List
 
+- github repo: https://github.com/RulerChen/NTUCS-CNAD/tree/main/hw4
 - docker hub: https://hub.docker.com/repository/docker/rulerchen/2025cloud/general
-- add test 3
+- success actions : https://github.com/RulerChen/NTUCS-CNAD/actions/runs/14853228255
+- failure actions : https://github.com/RulerChen/NTUCS-CNAD/actions/runs/14853261888
+- failure pr : https://github.com/RulerChen/NTUCS-CNAD/pull/7
