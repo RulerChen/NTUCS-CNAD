@@ -3,10 +3,14 @@ name: HW2 github actions template
 on:
   push:
     branches: [main]
+    files:
+      - 'hw2/**'
   pull_request:
     branches: [main]
+    files:
+      - 'hw2/**'
 
-# cd hw1 and ckech golang 
+# cd hw1 and setup golang
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,4 +37,3 @@ jobs:
         run: |
           cd hw1
           go build -o main .
-  

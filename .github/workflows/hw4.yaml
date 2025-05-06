@@ -1,0 +1,30 @@
+name: HW4
+
+on:
+  push:
+    branches: [main]
+    files:
+      - 'hw4/**'
+  pull_request:
+    branches: [main]
+    files:
+      - 'hw4/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        run: |
+          docker build -t rulerchen/2025cloud:${{ github.sha::8 }} .
+          docker push rulerchen/2025cloud:${{ github.sha::8 }}
