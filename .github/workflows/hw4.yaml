@@ -27,5 +27,5 @@ jobs:
 
       - name: Build and push
         run: |
-          docker build -t rulerchen/2025cloud:${ github.sha::8 } .
-          docker push rulerchen/2025cloud:${ github.sha::8 }
+          docker build -t rulerchen/2025cloud:${GITHUB_SHA::8} .
+          docker push rulerchen/2025cloud:${GITHUB_SHA::8}
