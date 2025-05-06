@@ -3,11 +3,11 @@ name: HW4
 on:
   push:
     branches: [main]
-    files:
+    paths:
       - 'hw4/**'
   pull_request:
     branches: [main]
-    files:
+    paths:
       - 'hw4/**'
 
 jobs:

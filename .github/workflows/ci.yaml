@@ -3,11 +3,11 @@ name: HW2 github actions template
 on:
   push:
     branches: [main]
-    files:
+    paths:
       - 'hw2/**'
   pull_request:
     branches: [main]
-    files:
+    paths:
       - 'hw2/**'
 
 # cd hw1 and setup golang
